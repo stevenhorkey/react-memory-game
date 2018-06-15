@@ -22,26 +22,28 @@ class Characters extends Component {
         this.setState({characters: characters})
     }
 
-    handleMatch = id => {
+    setTopScore = () => {
+        
+    }
+
+    handleMatch = id => {      
         console.log(this.state.clickedArr);
+        if(this.state.score > this.state.topScore){
+            this.setState({topScore: this.state.score})
+        };
         if (this.state.clickedArr.includes(id)){
-            alert('fucked up')
             this.setState({
                 score:0,
                 clickedArr: []
-            })
+            });
         } else {
             this.setState({score: this.state.score + 1});
             this.state.clickedArr.push(id);        
-        }
-        this.shuffleCharacters()
+        };
+        this.shuffleCharacters();
     }
 
-    setTopScore = () => {
-        if(this.state.score > this.state.topScore){
-            this.setState({topScore: this.state.score})
-        }
-    }
+    
 
     render() {
 
@@ -53,7 +55,7 @@ class Characters extends Component {
                     </h3>
                 </div>
 
-                <div className='row'>
+                <div className='row mb-5'>
                     {this.state.characters.map(character => {
                         return (
                             <span 
