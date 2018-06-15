@@ -5,9 +5,10 @@ import "./Character.css"
 
 const Character = props => {
     
-    return(<span>
-        <div onClick={() => props.handleMatch(props.id)} className="btn">
-            <img width='100px' src={props.image}/>
+    return(
+    <span>
+        <div className="btn">
+            <img width='100px' height='100px' src={props.image}/>
         </div>
     </span>
     )

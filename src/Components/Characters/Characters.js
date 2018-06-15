@@ -8,6 +8,7 @@ class Characters extends Component {
 
     state = {
         characters: characters,
+        topScore: 0,
         score: 0,
         clickedArr: []
     }
@@ -18,32 +19,55 @@ class Characters extends Component {
             [characters[i], characters[j]] = [characters[j], characters[i]];
         }
         // return characters;
-        this.setState({characters: this.characters})
+        this.setState({characters: characters})
     }
 
     handleMatch = id => {
-        for (var character in characters){
-            if (this.state.clickedArr.includes(character.id)){
-                alert('fucked up')
-            } else {
-                this.state.clickedArr.push(id);
-            }
+        console.log(this.state.clickedArr);
+        if (this.state.clickedArr.includes(id)){
+            alert('fucked up')
+            this.setState({
+                score:0,
+                clickedArr: []
+            })
+        } else {
+            this.setState({score: this.state.score + 1});
+            this.state.clickedArr.push(id);        
         }
         this.shuffleCharacters()
     }
 
+    setTopScore = () => {
+        if(this.state.score > this.state.topScore){
+            this.setState({topScore: this.state.score})
+        }
+    }
+
     render() {
-        
+
         return(
             <div className="">
-                {this.state.characters.map(character => (
-                    <Character
-                        id={character.id}
-                        key={character.id}
-                        image={character.image}
-                        handleMatch={this.handleMatch}
-                    />
-                ))}
+                <div className='row'>
+                    <h3 className="mx-auto my-5">
+                        Score: {this.state.score} | Top Score: 0
+                    </h3>
+                </div>
+
+                <div className='row'>
+                    {this.state.characters.map(character => {
+                        return (
+                            <span 
+                                onClick={(event) => this.handleMatch(character.id)} 
+                                id={character.id}
+                                key={character.id}
+                            >
+                                <Character
+                                    image={character.image}
+                                />
+                            </span>
+                        )
+                    })}
+                </div>
             </div>
         )
     }
